@@ -24,6 +24,12 @@
   color: white;
 }
 
+.Table-grid {
+  width: 50%;
+  margin: 0 auto;
+}
+
+
 .App-link {
   color: #61dafb;
 }
