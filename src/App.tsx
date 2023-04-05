@@ -1,24 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import ApiFetch from './service/ApiCalls/request'
+
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const [options, setOptions] = useState([]);
+  const [selectedValue, setSelectedValue] = useState('Deposit');
+
+  const handleSelectDropDown = (event : any) => {
+    setSelectedValue(event.target.value);
+  };
+
+  useEffect(() => {
+    const fetchDropDown = async () => {
+      try {
+        
+          const response = await fetch(ApiFetch.fetchOperationTypes);
+          const data = await response.json();
+          const newOptions = data.map((item:any) => ({ value: item.id, label: item.name }));
+          setOptions(newOptions);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchDropDown();
+  }, []);
+
+  console.log("dp value is: ", selectedValue);
+  console.log("dp options are: ", options);
+  console.log("TEST ", process.env.REACT_APP_API_URL)
+  
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Operation table</h1>
+      <select value={selectedValue} onChange={handleSelectDropDown}>
+        {options.map((option:any) => (
+          <option key={option.value} value={option.label}>
+            {option.label}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }
