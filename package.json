@@ -1,5 +1,5 @@
 {
-  "name": "tokero_wallet_web",
+  "name": "bank_web",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
