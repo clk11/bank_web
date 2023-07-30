@@ -23,9 +23,11 @@ const Auth = () => {
                 } else alert('Something went wrong !');
             } else {
                 if (password === _password) {
-                    await axios.post(ApiFetch.register, JSON.stringify({ username, password }), { headers });
-                    alert('Very well !');
-                    setIsLogin(true);
+                    const result = await axios.post(ApiFetch.register, JSON.stringify({ username, password }), { headers });
+                    if (result.data !== 'bad') { // alta manevra
+                        alert('Very well !');
+                        setIsLogin(true);
+                    }else alert('Username already taken !');
                 } else alert('The passwords need to be the same !');
             }
         } else alert('You need to complete everything !');
