@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import { useNavigate } from 'react-router-dom';
-const ComplexTable = ({ data, url }: any) => {
+import ApiFetch from '../../service/ApiCalls/request';
+const CoinsTable = ({ data }: any) => {
     const navigate = useNavigate();
     const onDelete = async (id: number) => {
+        let url = ApiFetch.deleteCoin;
         url += id;
         await fetch(url, {
             method: "DELETE",
@@ -13,9 +14,6 @@ const ComplexTable = ({ data, url }: any) => {
             }
         });
         window.location.reload();
-    }
-    const onEdit = () => {
-        alert('Edit');
     }
     return (
         <div>
@@ -31,7 +29,7 @@ const ComplexTable = ({ data, url }: any) => {
                 <tbody>
                     {data.map((current: any, index: any) => (
                         <tr key={index}>
-                            <td>{current.id}</td>
+                            <td>{index + 1}</td>
                             <td>{current.name}</td>
                             <td>{current.description}</td>
                             <td>
@@ -46,4 +44,4 @@ const ComplexTable = ({ data, url }: any) => {
     );
 };
 
-export default ComplexTable;
+export default CoinsTable;

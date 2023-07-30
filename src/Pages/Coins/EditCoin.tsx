@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
-import ApiFetch from '../service/ApiCalls/request';
-
+import ApiFetch from '../../service/ApiCalls/request';
 const EditCoin = () => {
   const navigate = useNavigate();
   const [name, setName] = useState('');

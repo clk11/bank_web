@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import ApiFetch from '../service/ApiCalls/request';
+import ApiFetch from '../../service/ApiCalls/request';
 import { useNavigate } from 'react-router-dom';
 
 const AddCoin = () => {
@@ -10,19 +10,21 @@ const AddCoin = () => {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    await fetch(ApiFetch.addCoin, {
-      method: "post",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
+    if (name.length !== 0 && description.length !== 0) {
+      await fetch(ApiFetch.addCoin, {
+        method: "post",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
 
-      body: JSON.stringify({
-        name,
-        description
-      })
-    });
-    navigate("/coins");
+        body: JSON.stringify({
+          name,
+          description
+        })
+      });
+      navigate("/coins");
+    }else alert('You need to complete everything !');
   };
 
   return (
@@ -43,7 +45,7 @@ const AddCoin = () => {
         <Form.Group controlId="formDescription">
           <Form.Label>Description</Form.Label>
           <Form.Control
-            as="textarea" 
+            as="textarea"
             value={description}
             style={{ marginBottom: '20px', maxWidth: '300px', width: '100%' }}
             onChange={(e) => setDescription(e.target.value)}
